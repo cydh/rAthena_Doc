@@ -52,8 +52,6 @@ function radoc_scripting_urls(basepath) {
 	"			<li><a href='" + base + "other_commands.html' title='Other Commands'>Other Commands</a></li>"+
 	"		</ul>"+
 	"	</div>"+
-	"	<div class='col'>"+
-	"	</div>"+
 	"</div>"+
 	"<div class='clear'></div>");
 }
