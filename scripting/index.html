@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Scripting Introduction - rAthena Documentation</title>
+		<style type='text/css' media='all'>@import url('../css/style.css');</style>
+		<link rel='stylesheet' type='text/css' media='all' href='../css/style.css' />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name='author' content='rAthena Developer Team and Community Contributors' />
+		<meta name='description' content='rAthena Documentation and User Guide' />
+		<link rel="shortcut icon" href='../images/favicon.png'/>
+		<script type="text/javascript" src="../js/radoc_info.js"></script>
+		<script type="text/javascript" src="../js/radoc_scripting_urls.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">radoc_header('null');</script>
+		<!-- Navigation -->
+		<nav>
+			<ul id='breadcrumb'>
+				<li><script type="text/javascript">radoc_home('../');</script></li>
+				<li class='breadcrumb_right'>Scripting Introduction</li>
+			</ul>
+			<div class='clear'></div>
+		</nav>
+		<!-- Navigation *End* -->
+		<!-- Page Content -->
+		<div id='page_content'>
+			<h1>Scripting Introduction</h1>
+			<div class='header_line'></div>
+			<ul id='toc'>
+				<li><a href='#Basic_Knowledge' title='Basic Knowledge'>Basic Knowledge</a>
+					<ul>
+						<li><a href='#Loading_Script' title='Loading Script'>Loading Script</a></li>
+						<li><a href='#Comment' title='Comment'>Comment</a></li>
+						<li><a href='#GID' title='GID'>GID</a></li>
+						<li><a href='#RID' title='RID'>RID</a></li>
+						<li><a href='#Item_and_Pet_Script' title='Item and Pet Script'>Item and Pet Script</a></li>
+						<li><a href='#Numbers' title='Numbers'>Numbers</a></li>
+					</ul>
+				</li>
+				<li><a href='#Scripting' title='See Also'>See Also</a></li>
+			</ul>
+			<br/>
+			<br/>
+			<h2 id='Basic_Knowledge'>Basic Knowledge</h2>
+			<div class='header_line'></div>
+			<h3 id='Loading_Script'>Loading Script</h3>
+			<p>Scripts are loaded by the map server as referenced in the '<kbd>conf/</kbd><samp>map_athena.conf</samp>' 
+configuration file, but in the default configuration, it doesn't load any script 
+files itself. Instead, it loads the file 'npc/scripts_main.conf' which itself 
+contains references to other files. The actual scripts are loaded from txt 
+files, which are linked up like this:</p>
+			<code><samp>npc:</samp> <kbd>&lt;path to a filename&gt;</kbd></code>
+			<p>Any line like this, invoked, ultimately, by 'map_athena.conf' will load up the 
+script contained in this file, which will make the script available. No file 
+will get loaded twice, to prevent possible errors.</p>
+			<p>Another configuration file option of relevance is:</p>
+			<code><var>delnpc:</var> <kbd>&lt;path to a filename&gt;</kbd></code>
+			<p>This will unload a specified script filename from memory, which, while 
+seemingly useless, may sometimes be required.</p>
+			<h3 id='Comment'>Comment</h3>
+			<p>Whenever '<var>//</var>' is encountered in a line upon reading, everything beyond this on 
+that line is considered to be a comment and is ignored. This works wherever you 
+place it.</p>
+			<code><var>//</var> This line will be ignored when processing the script.</code>
+			<p>Block comments can also be used, where you can place <var>/*</var> and <var>*/</var> between any text you 
+wish rAthena to ignore.</p>
+			<code><var>/*</var> This text,<br/>
+&nbsp;* no matter which new line you start<br/>
+&nbsp;* is ignored, until the following<br/>
+&nbsp;* symbol is encountered: <var>*/</var>
+<br/>
+<br/>
+<var>/*</var> The leading *<br/>
+&nbsp;in front of each line is a personal preference,<br/>
+&nbsp;and is not required.<var>*/</var></code>
+			<h3 id='GID'>GID</h3>
+			<p>Most scripting commands and functions will want to request data about a 
+character, store variables referenced to that character, send stuff to the 
+client connected to that specific character. Whenever a script is invoked by a 
+character, it is passed a so-called RID - this is the account ID number of a 
+character that caused the code to execute by clicking on it, walking into its 
+OnTouch zone, or otherwise.</p>
+			<p>If you are only writing common NPCs, you don't need to bother with it. However, 
+if you use functions, if you use timers, if you use clock-based script 
+activation, you need to be aware of all cases when a script execution can be 
+triggered without a RID attached. This will make a lot of commands and functions 
+unusable, since they want data from a specific character, want to send stuff to 
+a specific client, want to store variables specific to that character, and they 
+would not know what character to work on if there's no RID.</p>
+			<p>Unless you use 'attachrid' to explicitly attach a character to the script first.</p>
+			<p>Whenever we say 'invoking character', we mean 'the character who's RID is 
+attached to the running script. The script function "playerattached" can be
+used to check which is the currently attached player to the script (it will
+return 0 if the there is no player attached or the attached player no longer
+is logged on to the map-server).</p>
+			<h3 id='RID'>RID</h3>
+			<p>GID stands for the Game ID of something, this can either be the GID obtained
+through mobspawn (mob control commands) or the account ID of a character.
+Another way would be to right click on a mob, 
+NPC or char as GM sprited char to view the GID.</p>
+			<p>This is mostly used for the new version of skill and the mob control commands
+implemented.</p>
+			<h3 id='Item_and_Pet_Script'>Item and Pet Scripts</h3>
+			<p>Each item in the item database has three special fields - Script , OnEquip_Script
+and OnUnequip_Script. The first is script code run every time a character equips the item, 
+with the RID of the equipping character. Every time they unequip an item, all 
+temporary bonuses given by the script commands are cleared, and all the scripts 
+are executed once again to rebuild them. This also happens in several other 
+situations (like upon login) but the full list is currently unknown.</p>
+			<p>OnEquip_Script is a piece of script code run whenever the item is used by a character 
+by double-clicking on it. OnUnequip_Script runs whenever the
+equipment is unequip by a character</p>
+			<p>Not all script commands work properly in the item scripts. Where commands and 
+functions are known to be meant specifically for use in item scripts, they are 
+described as such.</p>
+			<p>Every pet in the pet database has a PetScript field, which determines pet 
+behavior. It is invoked wherever a pet of the specified type is spawned. 
+(hatched from an egg, or loaded from the char server when a character who had 
+that pet following them connects) This may occur in some other situations as 
+well. Don't expect anything other than commands definitely marked as usable in 
+pet scripts to work in there reliably.</p>
+			<h3 id='Numbers'>Numbers</h3>
+			<p>Beside the common decimal numbers, which are nothing special whatsoever (though
+do not expect to use fractions, since ALL numbers are integer in this language), 
+the script engine also handles hexadecimal numbers, which are otherwise 
+identical. Writing a number like '0x&lt;hex digits&gt;' will make it recognized as a 
+hexadecimal value. Notice that 0x10 is equal to 16. Also notice that if you try 
+to 'mes 0x10' it will print '16'.
+
+Number values can't exceed the limits of an integer variable: Any number
+greater than INT_MAX (2147483647) or smaller than INT_MIN (&minus;2147483648) will
+be capped to those values and will cause a warning to be reported.</p>
+			<code>.@var = <var>1</var>;<br/>
+				.@var = <var>-219</var>;<br/>
+				.@var = <dfn>0xFF0000</dfn>;<br/>
+			</code>
+			<p class='important'><strong>NOTE: </strong>DO NOT use quote (<strong>&quot; ... &quot;</strong>) for number!</p>
+			<br/>
+			<h2 id='Scripting'>See Also</h2>
+			<div class='header_line'></div>
+			<script type="text/javascript">radoc_scripting_urls('null');</script>
+		</div>
+		<!-- Page Content *End* -->
+		<!-- Footer -->
+		<footer>
+			<script type="text/javascript">radoc_footer('../');</script>
+		</footer>
+		<!-- Footer *End* -->
+	</body>
+</html>

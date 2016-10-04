@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Install and Configure - rAthena Documentation</title>
+		<style type='text/css' media='all'>@import url('../css/style.css');</style>
+		<link rel='stylesheet' type='text/css' media='all' href='../css/style.css' />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name='author' content='rAthena Developer Team and Community Contributors' />
+		<meta name='description' content='rAthena Documentation and User Guide' />
+		<link rel="shortcut icon" href='../images/favicon.png'/>
+		<script type="text/javascript" src="../js/radoc_info.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">radoc_header('null');</script>
+		<!-- Navigation -->
+		<nav>
+			<ul id='breadcrumb'>
+				<li><script type="text/javascript">radoc_home('../');</script></li>
+				<li class='breadcrumb_right'>Install and Configure</li>
+			</ul>
+			<div class='clear'></div>
+		</nav>
+		<!-- Navigation *End* -->
+		<!-- Page Content -->
+		<div id='page_content'>
+			<h1>Install and Configure rAthena</h1>
+			<div class='header_line'></div>
+			<p>Related contents in this section.</p>
+			<ul>
+				<li>Installation Instructions
+					<ul>
+						<li><a href='installation-on-centos.html' title='Installation on CentOS'>CentOS</a></li>
+						<li><a href='installation-on-windows.html' title='Installation on Windows'>Windows</a></li>
+					</ul>
+				</li>
+				<li><a href='import-sql.html' title='Importing SQL Files'>Importing SQL Files</a></li>
+				<li>Connecting Server
+					<ul>
+						<li><a href='subnet_conf.html' title='Configure subnet_conf'>Configure Subnet</a></li>
+						<li><a href='inter_conf.html' title='Configure inter_athena.conf'>Configure Interconnection (inter_athena.conf)</a></li>
+						<li><a href='login_conf.html' title='Configure login_athena.conf'>Configure Login Server (login_athena.conf)</a></li>
+						<li><a href='char_conf.html' title='Configure char_athena.conf'>Configure Char Server (char_athena.conf)</a></li>
+						<li><a href='map_conf.html' title='Configure map_athena.conf'>Configure Map Server (map_athena.conf)</a></li>
+						<li><a href='choosing-packet-version.html' title='Choosing Packet Version'>Choosing Packet Version</a></li>
+						<li><a href='core-feature.html' title='Knowing rAthena core.h Features'>Knowing core.h Features</a></li>
+					</ul>
+				</li>
+			</ul>
+			<p class='tip'>Technically, the connection is client access login-server,
+				then login-server connect to char-server, and char-server connect to
+				map-server the place where you will play!<br/>
+				So when configuring servers, just check login-server &amp; char-server
+				is connected by the (bind) IP and port, also with char-server &amp;
+				map-server is connected by the (bind) IP and port.</p>
+		</div>
+		<!-- Page Content *End* -->
+		<!-- Footer -->
+		<footer>
+			<script type="text/javascript">radoc_footer('../');</script>
+		</footer>
+		<!-- Footer *End* -->
+	</body>
+</html>

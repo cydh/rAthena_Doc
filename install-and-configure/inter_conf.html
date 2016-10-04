@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Configure Interconnection - rAthena Documentation</title>
+		<style type='text/css' media='all'>@import url('../css/style.css');</style>
+		<link rel='stylesheet' type='text/css' media='all' href='../css/style.css' />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name='author' content='rAthena Developer Team and Community Contributors' />
+		<meta name='description' content='rAthena Documentation and User Guide' />
+		<link rel="shortcut icon" href='../images/favicon.png'/>
+		<script type="text/javascript" src="../js/radoc_info.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">radoc_header('null');</script>
+		<!-- Navigation -->
+		<nav>
+			<ul id='breadcrumb'>
+				<li><script type="text/javascript">radoc_home('../');</script></li>
+				<li><a href='index.html' title=''>Install and Configure</a> &#8250;</li>
+				<li class='breadcrumb_right'>Configure Interconnection</li>
+			</ul>
+			<div class='clear'></div>
+		</nav>
+		<!-- Navigation *End* -->
+		<!-- Page Content -->
+		<div id='page_content'>
+			<h1>Configure Interconnection</h1>
+			<div class='header_line'></div>
+			<p class='important'>We are importing SQL files for single server. 1 Login-Server, 1 Char-Server,
+				and 1 Map-Server</p>
+			<p>This interconnection config means the configuration that related with servers and MySQL</p>
+			<p>Edit this file <kbd>conf/</kbd><samp>inter_athena.conf</samp>, you can open it with text editor.
+				Just change based on the marks. Some config values in this files are being used by login-server,
+				char-server, and map-server.</p>
+			<ul>
+				<li><var>IP</var>: Use the IP of your MySQL is hosted. 127.0.0.1 is localhost.</li>
+				<li><dfn>Port</dfn>: Port of port that used by MySQL, by default is 3306.</li>
+				<li><samp>ID/Username</samp>: MySQL user that has access to 'Main' and 'Log' database. We don't always need root.</li>
+				<li><kbd>PW/Password</kbd>: Password of MySQL user above. Leave it blank if no password. But, highly recommended to make MySQL user with password!</li>
+				<li><cite>DB/Database</cite>: Database name that used when you import main.sql and logs.sql</li>
+			</ul>
+			<code>// MySQL Login server<br/>
+			login_server_ip: 127.0.0.1<br/>
+			login_server_port: 3306<br/>
+			login_server_id: ragnarok<br/>
+			login_server_pw: ragnarok<br/>
+			login_server_db: ragnarok<br/>
+			login_codepage:<br/>
+			login_case_sensitive: no<br/>
+			<br/>
+			ipban_db_ip: 127.0.0.1<br/>
+			ipban_db_port: 3306<br/>
+			ipban_db_id: ragnarok<br/>
+			ipban_db_pw: ragnarok<br/>
+			ipban_db_db: ragnarok<br/>
+			ipban_codepage:<br/>
+			<br/>
+			// MySQL Character server<br/>
+			char_server_ip: 127.0.0.1<br/>
+			char_server_port: 3306<br/>
+			char_server_id: ragnarok<br/>
+			char_server_pw: ragnarok<br/>
+			char_server_db: ragnarok<br/>
+			<br/>
+			// MySQL Map Server<br/>
+			map_server_ip: 127.0.0.1<br/>
+			map_server_port: 3306<br/>
+			map_server_id: ragnarok<br/>
+			map_server_pw: ragnarok<br/>
+			map_server_db: ragnarok<br/>
+			<br/>
+			// MySQL Log Database<br/>
+			log_db_ip: 127.0.0.1<br/>
+			log_db_port: 3306<br/>
+			log_db_id: ragnarok<br/>
+			log_db_pw: ragnarok<br/>
+			log_db_db: ragnarok<br/>
+			log_codepage:<br/>
+			log_login_db: loginlog<br/>
+			</code>
+		</div>
+		<!-- Page Content *End* -->
+		<!-- Footer -->
+		<footer>
+			<script type="text/javascript">radoc_footer('../');</script>
+		</footer>
+		<!-- Footer *End* -->
+	</body>
+</html>

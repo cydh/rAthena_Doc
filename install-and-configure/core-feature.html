@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Knowing rAthena core.h Features - rAthena Documentation</title>
+		<style type='text/css' media='all'>@import url('../css/style.css');</style>
+		<link rel='stylesheet' type='text/css' media='all' href='../css/style.css' />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name='author' content='rAthena Developer Team and Community Contributors' />
+		<meta name='description' content='rAthena Documentation and User Guide' />
+		<link rel="shortcut icon" href='../images/favicon.png'/>
+		<script type="text/javascript" src="../js/radoc_info.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">radoc_header('null');</script>
+		<!-- Navigation -->
+		<nav>
+			<ul id='breadcrumb'>
+				<li><script type="text/javascript">radoc_home('../');</script></li>
+				<li><a href='index.html' title=''>Install and Configure</a> &#8250;</li>
+				<li class='breadcrumb_right'>Knowing rAthena core.h Features</li>
+			</ul>
+			<div class='clear'></div>
+		</nav>
+		<!-- Navigation *End* -->
+		<!-- Page Content -->
+		<div id='page_content'>
+			<h1>Knowing rAthena core.h Features</h1>
+			<div class='header_line'></div>
+			<p>There are some 'hardcoded' features that lying on <kbd>src/config/</kbd><samp>core.h</samp>.
+				To enable or disable the feature, just need to commenting or uncommenting the feature definition.</p>
+			<ul id='toc'>
+				<li><a href='#GUID' title='Generate Global Unique ID (GUID)'>Generate Global Unique ID (GUID)</a></li>
+				<li><a href='#Packet_Obfuscation' title='Packet Obfuscation'>Packet Obfuscation</a></li>
+				<li><a href='#...' title='...'>...</a></li>
+			</ul>
+			<br/>
+			<br/>
+			<h2 id='GUID'>Generate Global Unique ID (GUID)</h2>
+			<div class='header_line'></div>
+			<!--<p class='tip'><strong>Introduced: </strong><a href='https://github.com/rathena/rathena/commit/5ce80555a7420174cc157f07158e9cda84048403'><span class='external'>5ce80555a7420174cc157f07158e9cda84048403</span></a></p>-->
+			<p class='tip'><strong>Introduced: </strong><script type="text/javascript">radoc_gitHash('5ce80555a7420174cc157f07158e9cda84048403');</script></p>
+			<p>This feature will generate Global Unique Item for certain items, beside built-in Unique ID for
+			equipment/non-stackable-item. When this feature is enable the item with UID will be 'separated'
+			although the items are stackable items.</p>
+			<p>Since this feature is introduced, the NPC <kbd>npc/re/other/</kbd><samp>item_merge.txt</samp> can be used
+			to 'merge' the stackable items that separated by UID.</p>
+			<p>The items that by default were set for GUID can be found in <kbd>db/[pre-]re/</kbd><samp>item_flag.txt</samp>
+			and items that has GUID defined in item_group_db.txt (most of the are in <kbd>db/re/</kbd><samp>item_package.txt</samp></p>
+			<br/>
+			<h2 id='Packet_Obfuscation'>Packet Obfuscation</h2>
+			<div class='header_line'></div>
+			<p class='tip'><strong>Introduced: </strong><script type="text/javascript">radoc_gitHash('1b69b981fa679aaed16b0dd48bf5ab77ca392415');</script></p>
+			<p>More info please see <a href='https://rathena.org/board/topic/101092-packet-obfuscation-support/' title='Packet Obfuscation Support'><span class='external'>Packet Obfuscation Support</span></a></p>
+			<h3>Troubleshooting</h3>
+			<p>When this feature is enabled, you may encounter this issue below</p>
+			<ul>
+				<li>Rejected from server.</li>
+				<li>Unknown packet version.
+					<div class='image'>
+						<img src='../images/unknown-packet-version.png' alt='unknown-packet-version' />
+						<p class='caption'>[Info] clif_parse: Disconnecting session #4 with unknown packet version (p:0x7f57,l:19)</p>
+					</div>
+				</li>
+			</ul>
+			<p>The solution is</p>
+			<ul>
+				<li>Patch your client (example by using <a rel="nofollow" href='https://github.com/MStr3am/NEMO' title='NEMO' target="_blank"><span class="external">NEMO</span></a>) <var>without</var> <strong>Disable encrypted packet</strong> is checked (make sure it's unchecked).<br/>
+					<div class='image'>
+						<img src='../images/uncheck-disable-packet-encryption.png' alt='uncheck-disable-packet-encryption' />
+						<p class='caption'>Uncheck 'Disable Packet Encryption' using NEMO</p>
+					</div>
+				</li>
+				<li>When patching the client, you can put custom values for <strong>Packet First Key Encryption</strong>,
+					<strong>Packet Second Key Encryption</strong>, and <strong>Packet Third Key Encryption</strong>
+					make sure the values on <strong>packet_keys</strong> in <kbd>db/</kbd><samp>packet_db.txt</samp> for client that you use are same.
+					<code>//2013-08-07Ragexe<br/>
+packet_ver: 45<br/>
+packet_keys: 0x7E241DE0,0x5E805580,0x3D807D80 // [Shakto]</code>
+					or you can put the key values on <kbd>db/</kbd><cite>import/</cite><samp>packet_db.txt</samp> like this
+					<code><var>packet_keys_use</var>: 0x<samp>Key1</samp>,0x<samp>Key2</samp>,0x<samp>Key3</samp><br/>
+					packet_keys_use: 0x7E241DE0,0x5E805580,0x3D807D80</code>
+					<div class='image'>
+						<img src='../images/make-custom-encryption-keys.png' alt='make-custom-encryption-keys' />
+						<p class='caption'>Make custom encryption keys using NEMO</p>
+					</div>
+				</li>
+			</ul>
+			<br/>
+			<p class='important'><strong>NOTE:</strong> Recompile all servers if you made some changes here.</p>
+			<br/>
+			<br/>
+			<h2 id='...'>...</h2>
+			<div class='header_line'></div>
+			<p>&nbsp;
+			</p>
+		</div>
+		<!-- Page Content *End* -->
+		<!-- Footer -->
+		<footer>
+			<script type="text/javascript">radoc_footer('../');</script>
+		</footer>
+		<!-- Footer *End* -->
+	</body>
+</html>

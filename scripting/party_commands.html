@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Party Commands - rAthena Documentation</title>
+		<style type='text/css' media='all'>@import url('../css/style.css');</style>
+		<link rel='stylesheet' type='text/css' media='all' href='../css/style.css' />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name='author' content='rAthena Developer Team and Community Contributors' />
+		<meta name='description' content='rAthena Documentation and User Guide' />
+		<link rel="shortcut icon" href='../images/favicon.png'/>
+		<script type="text/javascript" src="../js/radoc_info.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">radoc_header('null');</script>
+		<!-- Navigation -->
+		<nav>
+			<ul id='breadcrumb'>
+				<li><script type="text/javascript">radoc_home('../');</script></li>
+				<li><a href='index.html' title='Scripting'>Scripting</a> &#8250;</li>
+				<li class='breadcrumb_right'>Party Commands</li>
+			</ul>
+			<div class='clear'></div>
+		</nav>
+		<!-- Navigation *End* -->
+		<!-- Page Content -->
+		<div id='page_content'>
+			<h1>Party Commands</h1>
+			<div class='header_line'></div>
+			<ul id='toc'>
+				<li><a href='#' title=''>a</a></li>
+				<li><a href='#' title=''>a</a></li>
+				<li><a href='#' title=''>a</a></li>
+				<li><a href='#' title=''>a</a></li>
+				<li><a href='#' title=''>a</a></li>
+				<li><a href='#' title=''>a</a></li>
+				<li><a href='#' title=''>a</a></li>
+				<li><a href='#' title=''>a</a></li>
+				<li><a href='#' title=''>a</a></li>
+				<li><a href='#' title=''>a</a></li>
+			</ul>
+			<br/>
+			<br/>
+<h2 id='getpartyname'>getpartyname</h2>
+<p>
+
+<code>getpartyname(<party id>)</code>
+
+This function will return the name of a party that has the specified ID number. 
+If there is no such party ID, "null" will be returned.
+
+Lets say the ID of a party was saved as a global variable:
+
+    // This would return the name of the party from the ID stored in a variable
+    mes "You're in the '"+getpartyname($@var)+"' party, I know!";
+
+</p>
+<h2 id='getpartymember'>getpartymember</h2>
+<p>
+
+<code>getpartymember <party id>{,<type>};</code>
+
+This command will find all members of a specified party and returns their names 
+(or character id or account id depending on the value of "type") into an array
+of temporary global variables. There's actually quite a few commands like this
+which will fill a special variable with data upon execution and not do anything
+else.
+
+Upon executing this,
+
+$@partymembername$[] is a global temporary string array which contains all the 
+                     names of these party members
+                     (only set when type is 0 or not specified)
+
+$@partymembercid[]   is a global temporary number array which contains the 
+                     character id of these party members.
+                     (only set when type is 1)
+
+$@partymemberaid[]   is a global temporary number array which contains the 
+                     account id of these party members.
+                     (only set when type is 2)
+
+$@partymembercount   is the number of party members that were found.
+
+The party members will (apparently) be found regardless of whether they are 
+online or offline. Note that the names come in no particular order.
+
+Be sure to use $@partymembercount to go through this array, and not 
+'getarraysize', because it is not cleared between runs of 'getpartymember'. If 
+someone with 7 party members invokes this script, the array would have 7 
+elements. But if another person calls up the NPC, and he has a party of 5, the 
+server will not clear the array for you, overwriting the values instead. So in 
+addition to returning the 5 member names, the 6th and 7th elements from the last 
+call remain, and you will get 5+2 members, of which the last 2 don't belong to 
+the new guy's party. $@partymembercount will always contain the correct number, 
+(5) unlike 'getarraysize()' which will return 7 in this case.
+
+Example 1: list party member names
+
+	// get the party member names
+	getpartymember getcharid(1),0;
+	
+	// It's a good idea to copy the global temporary $@partymember***** 
+	// variables to your own scope variables because if you have pauses in this 
+	// script (sleep, sleep2, next, close2, input, menu, select, or prompt), 
+	// another player could click this NPC, trigger 'getpartymember', and 
+	// overwrite the $@partymember***** variables.
+	.@count = $@partymembercount;
+	copyarray .@name$[0], $@partymembername$[0], $@partymembercount;
+	
+	// list the party member names
+	for (.@i = 0; .@i < .@count; .@i++)
+		mes (.@i +1) + ". ^0000FF" + .@name$[.@i] + "^000000";
+	close;
+
+
+Example 2: check party count (with a 'next' pause), before warping to event
+
+	.register_num = 5; // How many party members are required?
+	
+	// get the charID and accountID of character's party members
+	getpartymember getcharid(1), 1;
+	getpartymember getcharid(1), 2;
+	
+	if ( $@partymembercount != .register_num ) {
+		mes "Please form a party of "+ .register_num +" to continue";
+		close;
+	}
+	
+	// loop through both and use 'isloggedin' to count online party members
+	for ( .@i = 0; .@i < $@partymembercount; .@i++ )
+		if ( isloggedin( $@partymemberaid[.@i], $@partymembercid[.@i] ) )
+			.@count_online++;
+
+	// We search accountID & charID because a single party can have multiple 
+	// characters from the same account. Without searching through the charID, 
+	// if a player has 2 characters from the same account inside the party but 
+	// only 1 char online, it would count their online char twice.
+	
+	if ( .@count_online != .register_num ) {
+		mes "All your party members must be online to continue";
+		close;
+	}
+	
+	// copy the array to prevent players cheating the system
+	copyarray .@partymembercid, $@partymembercid, .register_num;
+	
+	mes "Are you ready ?";
+	next; // careful here
+	select("Yes");
+	
+	// When a script hits a next, menu, sleep or input that pauses the script, 
+	// players can invite or /leave and make changes in their party. To prevent 
+	// this, we call getpartymember again and compare with the original values.
+	
+	getpartymember getcharid(1), 1;
+	if ( $@partymembercount != .register_num ) {
+		mes "You've made changes to your party !";
+		close;
+	}
+	for ( .@i = 0; .@i < $@partymembercount; .@i++ ) {
+		if ( .@partymembercid[.@i] != $@partymembercid[.@i] ) {
+			mes "You've made changes to your party !";
+			close;
+		}
+	}
+	
+	// Finally, it's safe to start the event!
+	warpparty "event_map", 0,0, getcharid(1);
+
+</p>
+<h2 id='getpartyleader'>getpartyleader</h2>
+<p>
+
+<code>getpartyleader(<party id>{,<type>})</code>
+
+This function returns some information about the given party-id's leader.
+When type is omitted, the default information retrieved is the leader's name.
+Possible types are:
+
+	1: Leader account id
+	2: Leader character id
+	3: Leader's class
+	4: Leader's current map name
+	5: Leader's current level as stored on the party structure (may not be
+	   current level if leader leveled up recently).
+
+If retrieval fails (leader not found or party does not exist), this function
+returns "null" instead of the character name, and -1 for the other types.
+
+</p>
+<h2 id='party_create'>party_create</h2>
+<p>
+
+<code>party_create("<party name>"{,<character id>{,<item share>,<item share type>}});</code>
+
+Organizes a party with the attached or specified character as leader. If
+successful, the command returns 1 and sets the global temporary variable
+"$@party_create_id" to the ID of the party created.
+
+Additionally, item sharing options can be provided:
+ - Item Share: 0-Each Take (default), 1-Party Share
+ - Item Share Type: 0-Each Take (default), 1-Even Share
+
+These values are returned upon failure:
+ 0: Unknown error.
+-1: Player not found.
+-2: Player already has a party.
+-3: Party name exists.
+
+</p>
+<h2 id='party_destroy'>party_destroy</h2>
+<p>
+
+<code>party_destroy(<party id>);</code>
+
+Disbands a party. The command returns 1 upon success and 0 upon failure.
+
+</p>
+<h2 id='party_addmember'>party_addmember</h2>
+<p>
+
+<code>party_addmember(<party id>,<character id>);</code>
+
+Adds a player to an existing party.
+
+The command returns 1 upon success, and these values upon failure:
+ 0: Unknown error.
+-1: Player not found.
+-2: Player already has a party.
+-3: Party not found.
+-4: Party is full.
+
+</p>
+<h2 id='party_delmember'>party_delmember</h2>
+<p>
+
+<code>party_delmember({<character id>,<party id>});</code>
+
+Removes a player from his/her party. If no player is specified, the command
+will run for the invoking player. If that player is the only party member
+remaining, the party will be disbanded.
+
+The command returns 1 upon success, and these values upon failure:
+ 0: Unknown error.
+-1: Player not found.
+-2: Party not found.
+-3: Player is not in the party.
+
+</p>
+<h2 id='party_changeleader'>party_changeleader</h2>
+<p>
+
+<code>party_changeleader(<party id>,<character id>);</code>
+
+Transfers leadership of a party to the specified character.
+
+The command returns 1 upon success, and these values upon failure:
+ 0: Unknown error.
+-1: Party not found.
+-2: Player not found.
+-3: Player is not in the party.
+-4: Player is already party leader.
+
+</p>
+<h2 id='party_changeoption'>party_changeoption</h2>
+<p>
+
+<code>party_changeoption(<party id>,<option>,<flag>);</code>
+
+Changes a party option.
+
+Valid options are:
+ 0 - Exp Share (flags: 0-Each Take, 1-Even Share)
+ 1 - Item Share (flags: 0-Each Take, 1-Party Share)
+ 2 - Item Share Type (flags: 0-Each Take, 1-Even Share)
+
+The command returns 1 upon success, and these values upon failure:
+ 0: Invalid option.
+-1: Party not found.
+</p>
+		</div>
+		<!-- Page Content *End* -->
+		<!-- Footer -->
+		<footer>
+			<script type="text/javascript">radoc_footer('../');</script>
+		</footer>
+		<!-- Footer *End* -->
+	</body>
+</html>

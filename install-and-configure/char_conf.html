@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Configure Char-Server - rAthena Documentation</title>
+		<style type='text/css' media='all'>@import url('../css/style.css');</style>
+		<link rel='stylesheet' type='text/css' media='all' href='../css/style.css' />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name='author' content='rAthena Developer Team and Community Contributors' />
+		<meta name='description' content='rAthena Documentation and User Guide' />
+		<link rel="shortcut icon" href='../images/favicon.png'/>
+		<script type="text/javascript" src="../js/radoc_info.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">radoc_header('null');</script>
+		<!-- Navigation -->
+		<nav>
+			<ul id='breadcrumb'>
+				<li><script type="text/javascript">radoc_home('../');</script></li>
+				<li><a href='index.html' title=''>Install and Configure</a> &#8250;</li>
+				<li class='breadcrumb_right'>Configure Char-Server</li>
+			</ul>
+			<div class='clear'></div>
+		</nav>
+		<!-- Navigation *End* -->
+		<!-- Page Content -->
+		<div id='page_content'>
+			<h1>Configure Char-Server</h1>
+			<div class='header_line'></div>
+			<p class='important'>We are assuming for single server. 1 Login-Server, 1 Char-Server,
+				and 1 Map-Server</p>
+			<p>Edit this file <kbd>conf/</kbd><samp>char_athena.conf</samp>, you can open it with text editor.
+				Just change based on the marks. The rest, just you need to know how it works, just read the description.</p>
+			<code>// Athena Character configuration file.<br/>
+				<br/>
+				// Note: "Comments" are all text on the right side of a double slash "//"<br/>
+				// Whatever text is commented will not be parsed by the servers, and serves<br/>
+				// only as information/reference.<br/>
+				<br/>
+				// Server Communication username and password.<br/>
+				userid: s1<cite> //&lt;&minus;&minus;&minus; Put <samp>'myserver'</samp>. The username that used in login table</cite><br/>
+				passwd: p1<cite> //&lt;&minus;&minus;&minus; Put <samp>'myserver'</samp>. The password that used in login table</cite><br/>
+				<br/>
+				// Server name, use alternative character such as ASCII 160 for spaces.<br/>
+				// NOTE: Do not use spaces or any of these characters which are not allowed in<br/>
+				//       Windows filenames \&frasl;:*?&quot;&lt;&gt;|<br/>
+				//       ... or else guild emblems won't work client-side!<br/>
+				server_name: rAthena<cite> //&lt;&minus;&minus;&minus; You can change this, maybe <samp>'MyServer'</samp>. Will be shown in server list for multi char-server</cite><br/>
+				<br/>
+				// Wisp name for server: used to send wisp from server to players (between 4 to 23 characters)<br/>
+				wisp_server_name: Server<cite> //&lt;&minus;&minus;&minus; You can change this, maybe <samp>'MyServer'</samp></cite><br/>
+				<br/>
+				// Login Server IP<br/>
+				// The character server connects to the login server using this IP address.<br/>
+				// NOTE: This is useful when you are running behind a firewall or are on<br/>
+				// a machine with multiple interfaces.<br/>
+				//login_ip: 127.0.0.1<cite> //&lt;&minus;&minus;&minus; Just uncomment this, and look at <samp>'conf/login_athena.conf'</samp> for login bind_ip</cite><br/>
+				<br/>
+				// The character server listens on the interface with this IP address.<br/>
+				// NOTE: This allows you to run multiple servers on multiple interfaces<br/>
+				// while using the same ports for each server.<br/>
+				//bind_ip: 127.0.0.1<cite> //&lt;&minus;&minus;&minus; Just uncomment this, put the IP of your char-server is running</cite><br/>
+				<br/>
+				// Login Server Port<br/>
+				login_port: 6900<br/>
+				<br/>
+				// Character Server IP<br/>
+				// The IP address which clients will use to connect.<br/>
+				// Set this to what your server's public IP address is.<br/>
+				//char_ip: 127.0.0.1<cite> //&lt;&minus;&minus;&minus; Just uncomment this, put the IP of your char-server is running</cite><br/>
+				<br/>
+				// Character Server Port<br/>
+				char_port: 6121<br/>
+			</code>
+		</div>
+		<!-- Page Content *End* -->
+		<!-- Footer -->
+		<footer>
+			<script type="text/javascript">radoc_footer('../');</script>
+		</footer>
+		<!-- Footer *End* -->
+	</body>
+</html>

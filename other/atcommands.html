@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Atcommands - rAthena Documentation</title>
+		<style type='text/css' media='all'>@import url('../css/style.css');</style>
+		<link rel='stylesheet' type='text/css' media='all' href='../css/style.css' />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name='author' content='rAthena Developer Team and Community Contributors' />
+		<meta name='description' content='rAthena Documentation and User Guide' />
+		<link rel="shortcut icon" href='../images/favicon.png'/>
+		<script type="text/javascript" src="../js/radoc_info.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">radoc_header('null');</script>
+		<!-- Navigation -->
+		<nav>
+			<ul id='breadcrumb'>
+				<li><script type="text/javascript">radoc_home('../');</script></li>
+				<li><a href='index.html' title=''>Other Documentations</a> &#8250;</li>
+				<li class='breadcrumb_right'>Atcommands</li>
+			</ul>
+			<div class='clear'></div>
+		</nav>
+		<!-- Navigation *End* -->
+		<!-- Page Content -->
+		<div id='page_content'>
+			<h1>Atcommands</h1>
+			<div class='header_line'></div>
+			<ul id='toc'>
+				<li><a href='#System_Commands' title='System Commands'>System Commands</a></li>
+				<li><a href='#Database_Commands' title='Database Commands'>Database Commands</a></li>
+				<li><a href='#Player_Information_Commands' title='Player Information Commands'>Player Information Commands</a></li>
+				<li><a href='#Action_Commands' title='Action Commands'>Action Commands</a></li>
+				<li><a href='#Administrative_Commands' title='Administrative Commands'>Administrative Commands</a></li>
+				<li><a href='#Party_Commands' title='Party Commands'>Party Commands</a></li>
+				<li><a href='#Guild_Commands' title='Guild Commands'>Guild Commands</a></li>
+				<li><a href='#Pet_Commands' title='Pet Commands'>Pet Commands</a></li>
+				<li><a href='#Homunculus_Commands' title='Homunculus Commands'>Homunculus Commands</a></li>
+				<li><a href='#Channel_Commands' title='Channel Commands'>Channel Commands</a></li>
+			</ul>
+			<br/>
+			<br/>
+			<h2 id='System_Commands'>System Commands</h2>
+			<div class='header_line'></div>
+			<h3 id='version'>@version</h3>
+			<p>Displays SVN version of the server.</p>
+			<h3 id='rates'>@rates</h3>
+			<p>Displays the server rates.</p>
+			<code>Experience rates: Base 1.00x / Job 1.00x<br/>
+Normal Drop Rates: Common 1.00x / Healing 1.00x / Usable 1.00x Equipment 1.00x / Card 1.00x<br/>
+Boss Drop Rates:  Common 1.00x / Healing 1.00x / Usable 1.00x Equipment 1.00x / Card 1.00x<br/>
+Other Drop Rates: MvP 1.00x / Card-Based 1.00x / Treasure 1.00x</code>
+			<h3 id='time'>@time</h3>
+			<p>Displays the local server time, along with day/night information.</p>
+			<h3 id='uptime'>@uptime</h3>
+			<p>Show server uptime since last map server restart.</p>
+			<code>Server Uptime: 3 days, 8 hours, 6 minutes, 4 seconds.</code>
+			<h3 id='refresh'>@refresh</h3>
+			<p>Synchronizes the player's position on the client with the one stored on the server.</p>
+			<h3 id='refreshall'>@refreshall</h3>
+			<p>Synchronizes the player's position on the client with the one stored on the server for all online players.</p>
+			<h3 id='showexp'>@showexp</h3>
+			<p>Toggles the display of experience gain messages.</p>
+			<h3 id='showzeny'>@showzeny</h3>
+			<p>Toggles the display of Zeny gain messages.<br/>
+				Configuration for zeny being dropped by mobs is in '<kbd>conf/</kbd><dfn>battle/</dfn><samp>monster.conf</samp>':</p>
+			<code>zeny_from_mobs: <var>yes</var></code>
+			<h3 id='showdelay'>@showdelay</h3>
+			<p>Shows or hides the red "Cannot use the skills" message.</p>
+			<code>[Storm Gust] Cannot use the skills.</code>
+			<h3 id='noask'>@noask</h3>
+			<p>Toggles automatic rejection of deals and invites.</p>
+			<h3 id='noks'>@noks</h3>
+			<p>Toggles Kill Steal Protection.</p>
+			<h3 id='font'>@font</h3>
+			<p>Sets the client font.</p>
+			<code>@font &lt;type 0-9&gt;</code>
+			<p>Available types:</p>
+			<code>
+&nbsp;&nbsp;0: Default<br/>
+&nbsp;&nbsp;1: RixLoveangel<br/>
+&nbsp;&nbsp;2: RixSquirrel<br/>
+&nbsp;&nbsp;3: NHCgogo<br/>
+&nbsp;&nbsp;4: RixDiary<br/>
+&nbsp;&nbsp;5: RixMiniHeart<br/>
+&nbsp;&nbsp;6: RixFreshman<br/>
+&nbsp;&nbsp;7: RixKid<br/>
+&nbsp;&nbsp;8: RixMagic<br/>
+&nbsp;&nbsp;9: RixJJangu</code>
+			<h3 id='agitstart'>@agitstart</h3>
+			<p>Starts the War of Emperium [FE] by invoking scripts with the <dfn>OnAgitStart</dfn>.</p>
+			<h3 id='agitend'>@agitend</h3>
+			<p>Ends the War of Emperium [FE] by invoking scripts with the <dfn>OnAgitEnd</dfn>.</p>
+			<h3 id='agitstart2'>@agitstart2</h3>
+			<p>Starts the War of Emperium [SE] by invoking scripts with the <dfn>OnAgitStart2</dfn>.</p>
+			<h3 id='agitend2'>@agitend2</h3>
+			<p>Ends the War of Emperium [SE] by invoking scripts with the <dfn>OnAgitEnd2</dfn>.</p>
+			<h3 id='version'>@version</h3>
+			<p></p>
+			<h3 id='version'>@version</h3>
+			<p></p>
+			<h3 id='version'>@version</h3>
+			<p></p>
+			<br/>
+			<h2 id='Database_Commands'>Database Commands</h2>
+			<div class='header_line'></div>
+			<h3 id='Load_Script'>@cmd</h3>
+			<p></p>
+			<br/>
+			<h2 id='Player_Information_Commands'>Player Information Commands</h2>
+			<div class='header_line'></div>
+			<h3 id='Load_Script'>@cmd</h3>
+			<p></p>
+			<br/>
+			<h2 id='Action_Commands'>Action Commands</h2>
+			<div class='header_line'></div>
+			<h3 id='Load_Script'>@cmd</h3>
+			<p></p>
+			<br/>
+			<h2 id='Administrative_Commands'>Administrative Commands</h2>
+			<div class='header_line'></div>
+			<h3 id='Load_Script'>@cmd</h3>
+			<p></p>
+			<br/>
+			<h2 id='Party_Commands'>Party Commands</h2>
+			<div class='header_line'></div>
+			<h3 id='Load_Script'>@cmd</h3>
+			<p></p>
+			<br/>
+			<h2 id='Guild_Commands'>Guild Commands</h2>
+			<div class='header_line'></div>
+			<h3 id='Load_Script'>@cmd</h3>
+			<p></p>
+			<br/>
+			<h2 id='Pet_Commands'>Pet Commands</h2>
+			<div class='header_line'></div>
+			<h3 id='Load_Script'>@cmd</h3>
+			<p></p>
+			<br/>
+			<h2 id='Homunculus_Commands'>Homunculus Commands</h2>
+			<div class='header_line'></div>
+			<h3 id='Load_Script'>@cmd</h3>
+			<p></p>
+			<br/>
+			<h2 id='Channel_Commands'>Channel Commands</h2>
+			<div class='header_line'></div>
+			<h3 id='Load_Script'>@cmd</h3>
+			<p></p>
+			<br/>
+		</div>
+		<!-- Page Content *End* -->
+		<!-- Footer -->
+		<footer>
+			<script type="text/javascript">radoc_footer('../');</script>
+		</footer>
+		<!-- Footer *End* -->
+	</body>
+</html>

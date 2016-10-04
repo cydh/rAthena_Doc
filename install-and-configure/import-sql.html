@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Import SQL Files - rAthena Documentation</title>
+		<style type='text/css' media='all'>@import url('../css/style.css');</style>
+		<link rel='stylesheet' type='text/css' media='all' href='../css/style.css' />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name='author' content='rAthena Developer Team and Community Contributors' />
+		<meta name='description' content='rAthena Documentation and User Guide' />
+		<link rel="shortcut icon" href='../images/favicon.png'/>
+		<script type="text/javascript" src="../js/radoc_info.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">radoc_header('null');</script>
+		<!-- Navigation -->
+		<nav>
+			<ul id='breadcrumb'>
+				<li><script type="text/javascript">radoc_home('../');</script></li>
+				<li><a href='index.html' title=''>Install and Configure</a> &#8250;</li>
+				<li class='breadcrumb_right'>Importing SQL Files</li>
+			</ul>
+			<div class='clear'></div>
+		</nav>
+		<!-- Navigation *End* -->
+		<!-- Page Content -->
+		<div id='page_content'>
+			<h1>Import SQL Files</h1>
+			<div class='header_line'></div>
+			<p class='important'>For this case, we will import SQL files for single server. 1 Login-Server, 1 Char-Server,
+				and 1 Map-Server</p>
+			<h2>Main Database</h2>
+			<div class='header_line'></div>
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<p class='important'><strong>NOTE:</strong> Remember the database name! It will be used in <dfn>conf/inter_athena.conf</dfn>.</p>
+			<h3>Server Interconnection Credentials</h3>
+			<ul>
+				<li>Open login table, edit the first entry, by default you will get free setting.</li>
+				<li>Try change the <dfn>userid</dfn> to <kbd>myserver</kbd> and <dfn>user_pass</dfn>
+					to <kbd>myserver</kbd>, don't forget <var>use MD5 for password!</var> or just put this query
+					<code>UPDATE `login` SET `<dfn>userid</dfn>` = '<kbd>myserver</kbd>', `<dfn>user_pass</dfn>` = <var>MD5</var>('<kbd>myserver</kbd>') WEHERE `account_id` = 1;</code>
+				</li>
+			</ul>
+			<p class='important'><strong>NOTE:</strong> Remember the username and password! Those will be used in <dfn>conf/char_athena.conf</dfn>, and <dfn>conf/map_athena.conf</dfn>.<br/>
+				<strong>NOTE:</strong> If you are adding new entry, make sure that the <dfn>`sex`</dfn> is <var>S</var>.</p>
+			<br/>
+			<h2>Log Database</h2>
+			<div class='header_line'></div>
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<p class='important'><strong>NOTE:</strong> Remember the database name! It will be used in <dfn>conf/inter_athena.conf</dfn>.</p>
+		</div>
+		<!-- Page Content *End* -->
+		<!-- Footer -->
+		<footer>
+			<script type="text/javascript">radoc_footer('../');</script>
+		</footer>
+		<!-- Footer *End* -->
+	</body>
+</html>

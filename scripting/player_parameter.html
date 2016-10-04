@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Player's Parameter - rAthena Documentation</title>
+		<style type='text/css' media='all'>@import url('../css/style.css');</style>
+		<link rel='stylesheet' type='text/css' media='all' href='../css/style.css' />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name='author' content='rAthena Developer Team and Community Contributors' />
+		<meta name='description' content='rAthena Documentation and User Guide' />
+		<link rel="shortcut icon" href='../images/favicon.png'/>
+		<script type="text/javascript" src="../js/radoc_info.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">radoc_header('null');</script>
+		<!-- Navigation -->
+		<nav>
+			<ul id='breadcrumb'>
+				<li><script type="text/javascript">radoc_home('../');</script></li>
+				<li><a href='index.html' title='Scripting'>Scripting</a> &#8250;</li>
+				<li class='breadcrumb_right'>Player's Parameter</li>
+			</ul>
+			<div class='clear'></div>
+		</nav>
+		<!-- Navigation *End* -->
+		<!-- Page Content -->
+		<div id='page_content'>
+			<h1>Player's Parameter</h1>
+			<div class='header_line'></div>
+			<p>Some variables are special, that is, they are already defined for you by the 
+				scripting engine. You can see the full list somewhere in '<kbd>db/const.txt</kbd>', which 
+is a file you should read, since it also allows you to replace lots of numbered 
+arguments for many commands with easier to read text. The special variables most 
+commonly used are all permanent character-based variables:</p>
+			<code><var>Zeny</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Amount of Zeny.<br/>
+<var>Hp</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Current amount of hit points.<br/>
+<var>MaxHp</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Maximum amount of hit points.<br/>
+<var>Sp</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Current spell points.<br/>
+<var>MaxSp</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Maximum amount of spell points.<br/>
+<var>StatusPoint</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Amount of status points remaining.<br/>
+<var>SkillPoint</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Amount of skill points remaining.<br/>
+<var>BaseLevel</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Character's base level.<br/>
+<var>JobLevel</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Character's job level.<br/>
+<var>BaseExp</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Amount of base experience points.<br/>
+<var>JobExp</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Amount of job experience points.<br/>
+<var>NextBaseExp</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Amount of base experience points needed to reach the next level.<br/>
+<var>NextJobExp</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Amount of job experience points needed to reach the next level.<br/>
+<var>Weight</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Amount of weight the character currently carries.<br/>
+<var>MaxWeight</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Maximum weight the character can carry.<br/>
+<var>Sex</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;0 if female, 1 if male.<br/>
+<var>Class</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Character's job.<br/>
+<var>Upper</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;0 if the character is a normal class, 1 if advanced, 2 if baby.<br/>
+<var>BaseClass</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The character's 1-1 'normal' job, regardless of Upper value. For example, this will return Job_Acolyte for Acolyte, Priest/Monk, High Priest/Champion, and Arch Bishop/Sura. If the character has not reached a 1-1 class, it will return Job_Novice.<br/>
+<var>BaseJob</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The character's 'normal' job, regardless of Upper value. For example, this will return Job_Acolyte for Acolyte, Baby Acolyte, and High Acolyte.<br/>
+<var>Karma</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The character's karma. Karma system is not fully functional, but this doesn't mean this doesn't work at all. Not tested.<br/>
+<var>Manner</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The character's manner rating. Becomes negative if the player utters words forbidden through the use of 'manner.txt' client-side file.<br/>
+<var>killerrid</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;RID of enemy that kill the char. (Player's AID or Monster ID).<br/>
+<var>killedrid</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;RID of killed enemy. (Player's AID or Monster ID).<br/>
+<var>Sitting</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+<var>CharMoves</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+<var>CharRename</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+<var>Font</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Font type.<br/>
+<var>BankVault</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Amount of account money in bank vault for Banking System.<br/>
+<var>RouletteBronze</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Bronze Coin for Roulette game.<br/>
+<var>RouletteSilver</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Silver Coin for Roulette game.<br/>
+<var>RouletteGold</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Gold Coin for Roulette game.<br/>
+</code>
+		</div>
+		<!-- Page Content *End* -->
+		<!-- Footer -->
+		<footer>
+			<script type="text/javascript">radoc_footer('../');</script>
+		</footer>
+		<!-- Footer *End* -->
+	</body>
+</html>

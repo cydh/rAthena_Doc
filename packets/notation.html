@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Packet Struct Notations - rAthena Documentation</title>
+		<style type='text/css' media='all'>@import url('../css/style.css');</style>
+		<link rel='stylesheet' type='text/css' media='all' href='../css/style.css' />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name='author' content='rAthena Developer Team and Community Contributors' />
+		<meta name='description' content='rAthena Documentation and User Guide' />
+		<link rel="shortcut icon" href='../images/favicon.png'/>
+		<script type="text/javascript" src="../js/radoc_info.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">radoc_header('null');</script>
+		<!-- Navigation -->
+		<nav>
+			<ul id='breadcrumb'>
+				<li><script type="text/javascript">radoc_home('../');</script></li>
+				<li><a href='index.html' title=''>Packet Documentation</a> &#8250;</li>
+				<li class='breadcrumb_right'>Struct Notations</li>
+			</ul>
+			<div class='clear'></div>
+		</nav>
+		<!-- Navigation *End* -->
+		<!-- Page Content -->
+		<div id='page_content'>
+			<h1>Struct Notations</h1>
+			<div class='header_line'></div>
+			<p>This document specifies how packets are and should be documented, to
+				keep packet structure comments consistent in the entire codebase. It
+				also serves as a guide to those, who are unfamiliar with the general
+				packet layout.</p>
+			<p>All mentioned data types are assumed to be little-endian (least-
+				significant byte first, least significant bit last) and of same size
+				regardless of architecture.</p>
+			<br/>
+			<h3>Typical description of a packet</h3>
+			<code>/// Notifies the client about entering a chatroom (ZC_ENTER_ROOM).<br/>
+				/// 00db &lt;packet len&gt;.<samp>W</samp> &lt;chat id&gt;.<dfn>L</dfn> { &lt;role&gt;.<dfn>L</dfn> &lt;name&gt;.24<var>B</var> }*<br/>
+				/// role:<br/>
+				///&nbsp;&nbsp;&nbsp;&nbsp;0 = owner (menu)<br/>
+				///&nbsp;&nbsp;&nbsp;&nbsp;1 = normal</code>
+			<p>The first line contains a brief description of what the packet does,
+				or what it is good for, followed by it's AEGIS name in parentheses;
+				first two letters of the AEGIS name specify origin (first letter)
+				and destination (second letter) of the packet. If the packet's name
+				is not known or is not applicable (rAthena server-server packets),
+				specify at least these two letters to indicate the direction of the
+				packet. Do not use S(end)/R(ecv) for this, as it is inaccurate and
+				location dependent (if the description is copied to different server
+				or other RO-related projects, it might change it's meaning).</p>
+			<p>If there are multiple versions of the packet, the AEGIS name is
+				appended to the end of the packet's structure instead. If the name
+				did not change between versions, a PACKETVER expression is appended,
+				such as (PACKETVER &ge; 20111111).</p>
+			<p>Second line describes the packet's field structure, beginning with a
+				%04x formatted packet type, followed by the individual fields and
+				their types. Each field begins with it's name enclosed in angle
+				brackets ( &lt;field name&gt; ) followed by a dot and the data size type.
+				Field names should be lower-case and without underscores. If other
+				packets already have a field in common, use that name, rather than
+				inventing your own (ex. "packet len" and "account id"). Repeated and
+				optional fields are designated with curly and square brackets
+				respectively, padded with a single space at each side.</p>
+			<p>Further lines are optional and either include details about the
+				the packet's mechanics or further explanation on the packet fields'
+				values.</p>
+			<br/>
+			<h3>Packet field data size type</h3>
+			<code><var>B</var> = 1 byte (<var>byte</var>)<br/>
+				<samp>W</samp> = 2 bytes (<samp>word</samp>)<br/>
+				<dfn>L</dfn> = 4 bytes (<dfn>long, dword</dfn>)<br/>
+				<kbd>Q</kbd> = 8 bytes (<kbd>quad</kbd>)<br/>
+				<br/>
+				n<var>B</var> = n bytes<br/>
+				?<var>B</var> = variable/unknown amount of bytes<br/>
+				n<cite>S</cite> = n bytes, zero-terminated<br/>
+				?<cite>S</cite> = variable/unknown amount of bytes, zero-terminated</code>
+			<br/>
+			<h3>Repetition of packet fields</h3>
+			<code>{}&nbsp;&nbsp;&nbsp;= repeated block<br/>
+				{}*&nbsp;&nbsp;= variable/unknown amount of consecutive blocks<br/>
+				{}*n&nbsp;= n times repeated block<br/>
+				[]&nbsp;&nbsp;&nbsp;= optional fields</code>
+			<br/>
+			<h3>Packet origin and destination letters</h3>
+			<code> A = Account (Login)<br/>
+				C = Client<br/>
+				H = Character<br/>
+				I = Inter<br/>
+				S = Server (any type of server)<br/>
+				Z = Zone (Map)</code>
+			<br/>
+			<h2>Examples</h2>
+			<div class='header_line'></div>
+			<h3>Packet with nested repetition blocks:</h3>
+			<code>&nbsp;/// Presents a textual list of producable items (ZC_MAKABLEITEMLIST).<br/>
+			&nbsp;/// 018d &lt;packet len&gt;.W { &lt;name id&gt;.W { &lt;material id&gt;.W }*3 }*<br/>
+			&nbsp;/// material id:<br/>
+			&nbsp;///&nbsp;&nbsp;&nbsp;&nbsp;unused by the client</code>
+			<br/>
+			<h3>Packet with multiple versions identified with different AEGIS names:</h3>
+			<code>&nbsp;/// Request for server's tick.<br/>
+			&nbsp;/// 007e &lt;client tick&gt;.L (CZ_REQUEST_TIME)<br/>
+			&nbsp;/// 0360 &lt;client tick&gt;.L (CZ_REQUEST_TIME2)</code>
+			<br/>
+			<h3>Packet with multiple versions identified with same AEGIS name:</h3>
+			<code>&nbsp;/// Cashshop Buy Ack (ZC_PC_CASH_POINT_UPDATE).<br/>
+			&nbsp;/// 0289 &lt;cash point&gt;.L &lt;error&gt;.W<br/>
+			&nbsp;/// 0289 &lt;cash point&gt;.L &lt;kafra point&gt;.L &lt;error&gt;.W (PACKETVER &gt;= 20070711)</code>
+			<br/>
+			<h3>Packet with combination of both different AEGIS names and different versions with same name:</h3>
+			<code>&nbsp;/// Sends hotkey bar.<br/>
+			&nbsp;/// 02b9 { &lt;is skill&gt;.B &lt;id&gt;.L &lt;count&gt;.W }*27 (ZC_SHORTCUT_KEY_LIST)<br/>
+			&nbsp;/// 07d9 { &lt;is skill&gt;.B &lt;id&gt;.L &lt;count&gt;.W }*36 (ZC_SHORTCUT_KEY_LIST_V2, PACKETVER &gt;= 20090603)<br/>
+			&nbsp;/// 07d9 { &lt;is skill&gt;.B &lt;id&gt;.L &lt;count&gt;.W }*38 (ZC_SHORTCUT_KEY_LIST_V2, PACKETVER &gt;= 20090617)</code>
+			<br/>
+			<h3>Packet for a client command:</h3>
+			<code>&nbsp;/// /item /monster (CZ_ITEM_CREATE).<br/>
+			&nbsp;/// Request to make items or spawn monsters.<br/>
+			&nbsp;/// 013f &lt;item/mob name&gt;.24B</code>
+		</div>
+		<!-- Page Content *End* -->
+		<!-- Footer -->
+		<footer>
+			<script type="text/javascript">radoc_footer('../');</script>
+		</footer>
+		<!-- Footer *End* -->
+	</body>
+</html>

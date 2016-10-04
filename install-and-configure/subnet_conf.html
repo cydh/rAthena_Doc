@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Configure Subnet - rAthena Documentation</title>
+		<style type='text/css' media='all'>@import url('../css/style.css');</style>
+		<link rel='stylesheet' type='text/css' media='all' href='../css/style.css' />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name='author' content='rAthena Developer Team and Community Contributors' />
+		<meta name='description' content='rAthena Documentation and User Guide' />
+		<link rel="shortcut icon" href='../images/favicon.png'/>
+		<script type="text/javascript" src="../js/radoc_info.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">radoc_header('null');</script>
+		<!-- Navigation -->
+		<nav>
+			<ul id='breadcrumb'>
+				<li><script type="text/javascript">radoc_home('../');</script></li>
+				<li><a href='index.html' title=''>Install and Configure</a> &#8250;</li>
+				<li class='breadcrumb_right'>Configure Subnet</li>
+			</ul>
+			<div class='clear'></div>
+		</nav>
+		<!-- Navigation *End* -->
+		<!-- Page Content -->
+		<div id='page_content'>
+			<h1>Configure Subnet</h1>
+			<div class='header_line'></div>
+			<p class='important'>This is <dfn>useless</dfn> for local server that you use for
+				yourself. Not for multiplayer or over network connection!</p>
+			<p>Edit this file <kbd>conf/</kbd><samp>subnet_athena.conf</samp>, you can open it with text editor.</p>
+			<code>// Subnet support file<br/>
+				// Format is:<br/>
+				// subnet: net-submask:char_ip:map_ip<br/>
+				// you can add more than one subnet (max 16)<br/>
+				// check is <cite>if((net-submask &amp; char_ip ) == (net-submask & servip))</cite> =&gt; ok<br/>
+				<br/>
+				subnet: 255.0.0.0:127.0.0.1:127.0.0.1<br/>
+			</code>
+			<p>By using subnet/netmask you can restrict only player from X region that can connect to your server.
+			Of course you need to know the netmask and IP ranges.</p>
+			<p>This configuration file commonly used for server that running in server host.
+				Example the IP that you get from provider is <var>213.123.213.123</var>. You need to put this IP
+			in <kbd>conf/</kbd><samp>login_athena.conf</samp>, <kbd>conf/</kbd><samp>char_athena.conf</samp>,
+			and <kbd>conf/</kbd><samp>map_athena.conf</samp> instead of using <dfn>127.0.0.1</dfn>.</p>
+			<p>And your subnet_athena.conf will be</p>
+			<code>subnet: 255.0.0.0:<var>213.123.213.123</var>:<cite>213.123.213.123</cite></code>
+			<br/>
+			<p class='devnote'><kbd>Cydh says:</kbd> <em>"I know how subnetting works, but I'm not a good teacher!"</em></p>
+		</div>
+		<!-- Page Content *End* -->
+		<!-- Footer -->
+		<footer>
+			<script type="text/javascript">radoc_footer('../');</script>
+		</footer>
+		<!-- Footer *End* -->
+	</body>
+</html>

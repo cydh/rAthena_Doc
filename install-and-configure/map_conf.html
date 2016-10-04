@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Configure Map-Server - rAthena Documentation</title>
+		<style type='text/css' media='all'>@import url('../css/style.css');</style>
+		<link rel='stylesheet' type='text/css' media='all' href='../css/style.css' />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name='author' content='rAthena Developer Team and Community Contributors' />
+		<meta name='description' content='rAthena Documentation and User Guide' />
+		<link rel="shortcut icon" href='../images/favicon.png'/>
+		<script type="text/javascript" src="../js/radoc_info.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">radoc_header('null');</script>
+		<!-- Navigation -->
+		<nav>
+			<ul id='breadcrumb'>
+				<li><script type="text/javascript">radoc_home('../');</script></li>
+				<li><a href='index.html' title=''>Install and Configure</a> &#8250;</li>
+				<li class='breadcrumb_right'>Configure Map-Server</li>
+			</ul>
+			<div class='clear'></div>
+		</nav>
+		<!-- Navigation *End* -->
+		<!-- Page Content -->
+		<div id='page_content'>
+			<h1>Configure Map-Server</h1>
+			<div class='header_line'></div>
+			<p class='important'>We are assuming for single server. 1 Login-Server, 1 Char-Server,
+				and 1 Map-Server</p>
+			<p>Edit this file <kbd>conf/</kbd><samp>map_athena.conf</samp>, you can open it with text editor.
+				Just change based on the marks. The rest, just you need to know how it works, just read the description.</p>
+			<code>// Interserver communication passwords, set in account.txt (or equiv.)<br/>
+				userid: s1<cite> //&lt;&minus;&minus;&minus; Put <samp>'myserver'</samp>. The username that used in login table</cite><br/>
+				passwd: p1<cite> //&lt;&minus;&minus;&minus; Put <samp>'myserver'</samp>. The password that used in login table</cite><br/>
+			<br/>
+			// Character Server IP<br/>
+			// The map server connects to the character server using this IP address.<br/>
+			// NOTE: This is useful when you are running behind a firewall or are on<br/>
+			// a machine with multiple interfaces.<br/>
+			//char_ip: 127.0.0.1<cite> //&lt;&minus;&minus;&minus; Just uncomment this, and look at <samp>'conf/char_athena.conf'</samp> for char bind_ip</cite><br/>
+			<br/>
+			// The map server listens on the interface with this IP address.<br/>
+			// NOTE: This allows you to run multiple servers on multiple interfaces<br/>
+			// while using the same ports for each server.<br/>
+			//bind_ip: 127.0.0.1<cite> //&lt;&minus;&minus;&minus; Just uncomment this, put the IP of your map-server is running</cite><br/>
+			<br/>
+			// Character Server Port<br/>
+			char_port: 6121<br/>
+			<br/>
+			// Map Server IP<br/>
+			// The IP address which clients will use to connect.<br/>
+			// Set this to what your server's public IP address is.<br/>
+			//map_ip: 127.0.0.1<cite> //&lt;&minus;&minus;&minus; Just uncomment this, put the IP of your map-server is running</cite><br/>
+			<br/>
+			// Map Server Port<br/>
+			map_port: 5121<br/>
+			</code>
+		</div>
+		<!-- Page Content *End* -->
+		<!-- Footer -->
+		<footer>
+			<script type="text/javascript">radoc_footer('../');</script>
+		</footer>
+		<!-- Footer *End* -->
+	</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Script Variables - rAthena Documentation</title>
+		<style type='text/css' media='all'>@import url('../css/style.css');</style>
+		<link rel='stylesheet' type='text/css' media='all' href='../css/style.css' />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name='author' content='rAthena Developer Team and Community Contributors' />
+		<meta name='description' content='rAthena Documentation and User Guide' />
+		<link rel="shortcut icon" href='../images/favicon.png'/>
+		<script type="text/javascript" src="../js/radoc_info.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">radoc_header('null');</script>
+		<!-- Navigation -->
+		<nav>
+			<ul id='breadcrumb'>
+				<li><script type="text/javascript">radoc_home('../');</script></li>
+				<li><a href='index.html' title='Scripting'>Scripting</a> &#8250;</li>
+				<li class='breadcrumb_right'>Script Variables</li>
+			</ul>
+			<div class='clear'></div>
+		</nav>
+		<!-- Navigation *End* -->
+		<!-- Page Content -->
+		<div id='page_content'>
+			<h1>Script Variables</h1>
+			<div class='header_line'></div>
+			<ul id='toc'>
+				<li><a href='#Parts_on_Variable' title='Parts on Variable'>Parts on Variable</a></li>
+				<li><a href='#Scopes_and_Extents' title='Scopes and Extents'>Scopes and Extents</a>
+					<ul>
+						<li><a href='#Scopes' title='Load Scopes'>Scopes</a></li>
+						<li><a href='#Extents' title='Extents'>Extents</a></li>
+					</ul>
+				</li>
+				<li><a href='#Prefix:_Scope_and_Extent' title='Prefix: Scope and Extent'>Prefix: Scope and Extent</a></li>
+				<li><a href='#Postfix:_Integer_or_String' title='Postfix: Integer or String'>Postfix: Integer or String</a></li>
+				<li><a href='#Examples' title='Examples'>Examples</a>
+					<ul>
+						<li><a href='#Character_Variables' title='Character Variables'>Character Variables</a></li>
+						<li><a href='#Global_Map_Variables' title='Global Map Variables'>Global Map Variables</a></li>
+						<li><a href='#NPC_Variables' title='NPC Variables'>NPC Variables</a></li>
+						<li><a href='#Scope_Variables' title='Scope Variables'>Scope Variables</a></li>
+						<li><a href='#Local_Account_Variables' title='Local Account Variables'>Local Account Variables</a></li>
+						<li><a href='#Global_Account_Variables' title='Global Account Variables'>Global Account Variables</a></li>
+					</ul>
+				</li>
+			</ul>
+			<br/>
+			<br/>
+			<h2 id='Parts_on_Variable'>Parts on Variable</h2>
+			<div class='header_line'></div>
+			<p>Variables are divided into and uniquely identified by the combination of:</p>
+			<code>
+				<var>prefix</var>&nbsp;&nbsp;- determines the scope and extent (or lifetime) of the variable<br/>
+				<kbd>name</kbd>&nbsp;&nbsp;&nbsp;&nbsp;- an identifier consisting of '_' and alphanumeric characters<br/>
+				<dfn>postfix</dfn>&nbsp;- determines the type of the variable: integer or string</code>
+			<br/>
+			<h2 id='Scopes_and_Extents'>Scopes and Extents</h2>
+			<div class='header_line'></div>
+			<h3 id='Scopes'>Scopes</h3>
+			<code>
+global&nbsp;&nbsp;&nbsp;&nbsp;- global to all servers<br/>
+local&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- local to the server<br/>
+account&nbsp;&nbsp;&nbsp;- attached to the account of the character identified by RID<br/>
+character&nbsp;- attached to the character identified by RID<br/>
+npc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- attached to the NPC<br/>
+scope&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- attached to the scope of the instance</code>
+			<h3 id='Extents'>Extents</h3>
+			<code>
+permanent - They still exist when the server resets.<br/>
+temporary - They cease to exist when the server resets.</code>
+			<p class='tip'>At least you just need to understand and remember the explanations below.</p>
+			<br/>
+			<h2 id='Prefix:_Scope_and_Extent'>Prefix: Scope and Extent</h2>
+			<div class='header_line'></div>
+			<code><dfn>nothing</dfn><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A permanent variable attached to the character, the default variable type. They are stored in the `global_reg_value` table using type 3.<br/>
+<var>@</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A temporary variable attached to the character. SVN versions before 2094 revision and RC5 version will also treat 'l' as a temporary variable prefix, so beware of having variable names starting with 'l' if you want full backward compatibility.<br/>
+<var>$</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A global permanent variable. They are stored in database table `mapreg`.<br/>
+<var>$@</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A global temporary variable. This is important for scripts which are called with no RID attached, that is, not triggered by a specific character object.<br/>
+<var>.</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A NPC variable. They exist in the NPC and disappear when the server restarts or the  NPC is reloaded. Can be accessed from inside the NPC or by calling  'getvariableofnpc'. Function objects can also have .variables which  are accessible from inside the function, however 'getvariableofnpc'  does NOT work on function objects.<br/>
+<var>.@</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A scope variable. They are unique to the instance and scope. Each instance has its  own scope that ends when the script ends. Calling a function with  callsub/callfunc starts a new scope, returning from the function  ends it. When a scope ends, its variables are converted to values  ('return .@var;' returns a value, not a reference).<br/>
+<var>'</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;An instance variable These are used with the instancing system, and are unique to each  party's instance.<br/>
+<var>#</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A permanent local account variable. They are stored in the `global_reg_value` table using type 2.<br/>
+<var>##</var><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A permanent global account variable stored by the login server. They are stored in the `global_reg_value` table using type 1. The only difference you will note from normal # variables is when you have multiple char-servers connected to the same login server. The # variables are unique to each char-server, while the ## variables are shared by all these char-servers.</code>
+			<br/>
+			<h2 id='Postfix:_Integer_or_String'>Postfix: Integer or String</h2>
+			<div class='header_line'></div>
+			<code><dfn>nothing</dfn><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Integer variable, can store positive and negative numbers, but only whole numbers (so don't expect to do any fractional math)<br/>
+<samp>$</samp><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;String variable, can store text</code>
+			<br/>
+			<h2 id='Examples'>Examples</h2>
+			<div class='header_line'></div>
+			<h3 id='Character_Variables'>Character Variables</h3>
+			<code><kbd>name</kbd>&nbsp;&nbsp;&nbsp;- permanent character integer variable<br/>
+<kbd>name</kbd><samp>$</samp>&nbsp;&nbsp;- permanent character string variable<br/>
+<var>@</var><kbd>name</kbd>&nbsp;&nbsp;- temporary character integer variable<br/>
+<var>@</var><kbd>name</kbd><samp>$</samp>&nbsp;- temporary character string variable</code>
+			<h3 id='Global_Map_Variables'>Global Map Variables</h3>
+			<code><var>$</var><kbd>name</kbd>&nbsp;&nbsp;&nbsp;- permanent global integer variable<br/>
+<var>$</var><kbd>name</kbd><samp>$</samp>&nbsp;&nbsp;- permanent global string variable<br/>
+<var>$@</var><kbd>name</kbd>&nbsp;&nbsp;- temporary global integer variable<br/>
+<var>$@</var><kbd>name</kbd><samp>$</samp>&nbsp;- temporary global string variable</code>
+			<h3 id='NPC_Variables'>NPC Variables</h3>
+			<code><var>.</var><kbd>name</kbd>&nbsp;&nbsp;- NPC integer variable<br/>
+<var>.</var><kbd>name</kbd><samp>$</samp>&nbsp;- NPC string variable</code>
+			<h3 id='Scope_Variables'>Scope Variables</h3>
+			<code><var>.@</var><kbd>name</kbd>&nbsp;&nbsp;- scope integer variable<br/>
+<var>.@</var><kbd>name</kbd><samp>$</samp>&nbsp;- scope string variable</code>
+			<h3 id='Local_Account_Variables'>Local Account Variables</h3>
+			<code><var>#</var><kbd>name</kbd>&nbsp;&nbsp;- permanent local account integer variable<br/>
+<var>#</var><kbd>name</kbd><samp>$</samp>&nbsp;- permanent local account string variable</code>
+			<h3 id='Global_Account_Variables'>Global Account Variables</h3>
+			<code><var>##</var><kbd>name</kbd>&nbsp;&nbsp;- permanent global account integer variable<br/>
+<var>##</var><kbd>name</kbd><samp>$</samp>&nbsp;- permanent global account string variable</code>
+			<p>If a variable was never set, it is considered to equal zero for integer 
+variables or an empty string ("", nothing between the quotes) for string 
+variables. Once you set it to that, the variable is as good as forgotten 
+forever, and no trace remains of it even if it was stored with character or 
+account data.</p>
+		</div>
+		<!-- Page Content *End* -->
+		<!-- Footer -->
+		<footer>
+			<script type="text/javascript">radoc_footer('../');</script>
+		</footer>
+		<!-- Footer *End* -->
+	</body>
+</html>

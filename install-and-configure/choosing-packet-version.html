@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Choosing Packet Version - rAthena Documentation</title>
+		<style type='text/css' media='all'>@import url('../css/style.css');</style>
+		<link rel='stylesheet' type='text/css' media='all' href='../css/style.css' />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name='author' content='rAthena Developer Team and Community Contributors' />
+		<meta name='description' content='rAthena Documentation and User Guide' />
+		<link rel="shortcut icon" href='../images/favicon.png'/>
+		<script type="text/javascript" src="../js/radoc_info.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">radoc_header('null');</script>
+		<!-- Navigation -->
+		<nav>
+			<ul id='breadcrumb'>
+				<li><script type="text/javascript">radoc_home('../');</script></li>
+				<li><a href='index.html' title=''>Install and Configure</a> &#8250;</li>
+				<li class='breadcrumb_right'>Choosing Packet Version</li>
+			</ul>
+			<div class='clear'></div>
+		</nav>
+		<!-- Navigation *End* -->
+		<!-- Page Content -->
+		<div id='page_content'>
+			<h1>Choosing Packet Version</h1>
+			<div class='header_line'></div>
+			<h2>Officially Supported Client Versions</h2>
+			<div class='header_line'></div>
+			<p>As <span class='rathena'>rAthena</span> announcement in <a href='https://rathena.org/board/topic/86650-officially-supported-client-versions/'><span class='external'>Officially supported client versions</span></a>,
+				highly recommended to use client and packet version that listed on that post.<br/>
+			Please also follow these list below for reference later.<br/>
+			</p>
+			<p><dfn>#PACKETVER</dfn> is value that you need to change in src/common/<samp>mmo.h</samp><br/>
+				<kbd>packet_db_ver</kbd> is value that you need to change in db/<samp>packet_db.txt</samp><br/>
+				<cite>&lt;version&gt;</cite> is value that you need to change in <var>ROClientFolder</var>/data/<samp>clientinfo.xml</samp></p>
+			<ul>
+				<li>For <strong>2010-07-30 RagexeRE client</strong>
+					<code><dfn>#PACKETVER 20100730</dfn><br/>
+						<kbd>packet_db_ver: 25</kbd><br/>
+						<cite>&lt;version&gt;25&lt;/version&gt;</cite>
+					</code>
+					<p class='important'>Sometimes user use version 26 for 20100730 and no critical matters encounter.<br/>
+						<strong>INFO:</strong> This client is still using Lua 5.0.x
+					</p>
+				</li>
+				<li>For <strong>2012-04-10aRagexeRE</strong> client
+					<code><dfn>#PACKETVER 2020410</dfn><br/>
+						<kbd>packet_db_ver: 30</kbd><br/>
+						<cite>&lt;version&gt;30&lt;/version&gt;</cite>
+					</code>
+					<p class='important'>2012-04-10a and 2012-04-18a may looks similar, but 2012-04-18a already using 'new' client file structures, that also using Lua 5.1.x</p>
+				</li>
+				<li>For <strong>2013-08-07aRagexe</strong> client
+					<code><dfn>#PACKETVER 20130807</dfn><br/>
+						<kbd>packet_db_ver: 45</kbd><br/>
+						<cite>&lt;version&gt;45&lt;/version&gt;</cite>
+					</code>
+					<p class='important'>At this point, for people who ask &quot;<strong>latest stable client compatible with rAthena</strong>&quot;, just use this version!</p>
+				</li>
+			</ul>
+			<br/>
+			<p class='important'><strong>IMPORTANT</strong> Always recompile servers (map, char, and login) if there's change on mmo.h</p>
+		</div>
+		<!-- Page Content *End* -->
+		<!-- Footer -->
+		<footer>
+			<script type="text/javascript">radoc_footer('../');</script>
+		</footer>
+		<!-- Footer *End* -->
+	</body>
+</html>
